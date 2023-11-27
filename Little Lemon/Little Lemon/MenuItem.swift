@@ -7,10 +7,20 @@
 
 import Foundation
 
-struct MenuItem: Decodable {
+struct MenuItem: Codable {
+    
+    enum CodingKeys : String, CodingKey {
+        case title
+        case image
+        case price
+        case dishDescription = "description"
+        case category
+    }
     
     let title: String
     let image: String
     let price: String
+    let dishDescription: String
+    let category: String
     
 }

@@ -19,6 +19,7 @@
 		5A853EDF2B14FAA4005EA5A8 /* MenuList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A853EDE2B14FAA4005EA5A8 /* MenuList.swift */; };
 		5A853EE12B14FAE6005EA5A8 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A853EE02B14FAE6005EA5A8 /* MenuItem.swift */; };
 		5A853EE42B150068005EA5A8 /* ExampleDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A853EE22B150068005EA5A8 /* ExampleDatabase.xcdatamodeld */; };
+		5A853EE62B154967005EA5A8 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A853EE52B154967005EA5A8 /* Hero.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		5A853EDE2B14FAA4005EA5A8 /* MenuList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuList.swift; sourceTree = "<group>"; };
 		5A853EE02B14FAE6005EA5A8 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		5A853EE32B150068005EA5A8 /* ExampleDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExampleDatabase.xcdatamodel; sourceTree = "<group>"; };
+		5A853EE52B154967005EA5A8 /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				5A6709902B13BBFE008A40D0 /* UserProfile.swift */,
 				5A67098C2B129700008A40D0 /* Home.swift */,
 				5A67098E2B12971E008A40D0 /* Menu.swift */,
+				5A853EE52B154967005EA5A8 /* Hero.swift */,
 				5A853EE22B150068005EA5A8 /* ExampleDatabase.xcdatamodeld */,
 				5A853EDB2B14FA38005EA5A8 /* FetchedObjects.swift */,
 				5A853EDA2B14FA38005EA5A8 /* Persistence.swift */,
@@ -167,6 +170,7 @@
 				5A6709912B13BBFE008A40D0 /* UserProfile.swift in Sources */,
 				5A853EDC2B14FA38005EA5A8 /* Persistence.swift in Sources */,
 				5A853EE42B150068005EA5A8 /* ExampleDatabase.xcdatamodeld in Sources */,
+				5A853EE62B154967005EA5A8 /* Hero.swift in Sources */,
 				5A67098F2B12971E008A40D0 /* Menu.swift in Sources */,
 				5A853EE12B14FAE6005EA5A8 /* MenuItem.swift in Sources */,
 				5A853EDD2B14FA38005EA5A8 /* FetchedObjects.swift in Sources */,

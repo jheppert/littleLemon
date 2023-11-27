@@ -22,35 +22,53 @@ struct Onboarding: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: Home(), isActive: $isLoggedIn) {
-                    EmptyView()
-                }
-//                navigationDestination(isPresented: $isLoggedIn) {
-//                    Home()
-//                }
-                TextField("First Name", text: $firstName)
-                TextField("Last Name", text: $lastName)
-                TextField("Email Address", text: $email)
-                Button("Register") {
-                    if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
-                        UserDefaults.standard.set(firstName, forKey: kFirstName)
-                        UserDefaults.standard.set(lastName, forKey: kLastName)
-                        UserDefaults.standard.set(email, forKey: kEmail)
-                        UserDefaults.standard.set(true, forKey: kLoggedIn)
-                        isLoggedIn = true
-                    } else {
-                        
+                Hero()
+                    .background(Color("brandGreen"))
+                VStack {
+                    NavigationLink(destination: Home(), isActive: $isLoggedIn) {
+                        EmptyView()
                     }
+                    VStack(alignment: .leading) {
+                        Text("First Name *")
+                        TextField("First Name", text: $firstName)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                        Text("Last Name *")
+                        TextField("Last Name", text: $lastName)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                        Text("Email *")
+                        TextField("Email Address", text: $email)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                    }
+                    .textFieldStyle(.roundedBorder)
+                    Button("Register") {
+                        if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
+                            UserDefaults.standard.set(firstName, forKey: kFirstName)
+                            UserDefaults.standard.set(lastName, forKey: kLastName)
+                            UserDefaults.standard.set(email, forKey: kEmail)
+                            UserDefaults.standard.set(true, forKey: kLoggedIn)
+                            isLoggedIn = true
+                            
+                            // Clear inputs for later login:
+                            firstName = ""
+                            lastName = ""
+                            email = ""
+                        }
+                    }
+                    .disabled(firstName.isEmpty || lastName.isEmpty || email.isEmpty)
+                    .tint(Color("brandYellow"))
+                    .foregroundStyle(.black)
+                    .buttonStyle(.borderedProminent)
+                    Spacer()
                 }
-            }
-            .padding()
-            .onAppear() {
-                if (UserDefaults.standard.value(forKey: kLoggedIn) as! Bool == true) {
-                    isLoggedIn = true
-                    print("Logged In")
-                } else {
-                    isLoggedIn = false
-                    print("Logged out")
+                .padding()
+                .onAppear() {
+                    if (UserDefaults.standard.value(forKey: kLoggedIn) as! Bool == true) {
+                        isLoggedIn = true
+                        print("Logged In")
+                    } else {
+                        isLoggedIn = false
+                        print("Logged out")
+                    }
                 }
             }
         }

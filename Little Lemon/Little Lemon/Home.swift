@@ -23,6 +23,24 @@ struct Home: View {
                 }
         }
         .navigationBarBackButtonHidden()
+//        .toolbarBackground(.white, for: .automatic)
+        .toolbarBackground(Color.white, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Image("littleLemonLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 35)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Image("profileImage")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 35)
+                    .clipShape(Circle())
+            }
+        }
     }
 }
 

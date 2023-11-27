@@ -18,7 +18,7 @@ struct UserProfile: View {
     var body: some View {
         VStack {
             Text("Personal Information")
-            Image("profile-image-placeholder")
+            Image("profileImage")
             Text("First Name: \(firstName ?? "")")
             Text("Last Name: \(lastName ?? "")")
             Text("Email: \(email ?? "")")

@@ -11,18 +11,111 @@ struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var searchText = ""
-    
+    @State private var filterCategory = ""
+    @FocusState var isSearchFocused: Bool
+        
     var body: some View {
         VStack {
-            Text("Little Lemon")
-            Text("Chicago")
-            Text("This is a description of the whole application")
-            TextField("Search menu", text: $searchText)
+            VStack {
+                Hero()
+                TextField("Search menu", text: $searchText)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                    .focused($isSearchFocused)
+            }
+            .background(Color("brandGreen"))
+            .onChange(of: isSearchFocused) { oldValue, newValue in
+                if newValue == true {
+                    filterCategory = ""
+                }
+                print("Focus: \(newValue)")
+            }
+            
+            VStack(alignment: .leading) {
+                Text("Order for delivery!")
+                ScrollView(.horizontal) {
+                    HStack {
+                        Button(action: {
+                            searchText = ""
+                            filterCategory = ""
+                            isSearchFocused = false
+                        }, label: {
+                            Text("All Items")
+                        })
+                        .padding(EdgeInsets(top:8, leading: 16, bottom: 10, trailing: 16))
+                        .background(filterCategory == "" ? Color("brandYellow") : Color("lightBackground"))
+                        .clipShape(Capsule())
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                        .foregroundStyle(.black)
+                        
+                        Button(action: {
+                            searchText = ""
+                            filterCategory = "starters"
+                            isSearchFocused = false
+                        }, label: {
+                            Text("Starters")
+                        })
+                        .padding(EdgeInsets(top:8, leading: 12, bottom: 10, trailing: 12))
+                        .background(filterCategory == "starters" ? Color("brandYellow") : Color("lightBackground"))
+                        .clipShape(Capsule())
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                        .foregroundStyle(.black)
+                        
+                        Button(action: {
+                            searchText = ""
+                            filterCategory = "mains"
+                            isSearchFocused = false
+                        }, label: {
+                            Text("Mains")
+                        })
+                        .padding(EdgeInsets(top:8, leading: 12, bottom: 10, trailing: 12))
+                        .background(filterCategory == "mains" ? Color("brandYellow") : Color("lightBackground"))
+                        .clipShape(Capsule())
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                        .foregroundStyle(.black)
+                        
+                        Button(action: {
+                            searchText = ""
+                            filterCategory = "desserts"
+                            isSearchFocused = false
+                        }, label: {
+                            Text("Desserts")
+                        })
+                        .padding(EdgeInsets(top:8, leading: 12, bottom: 10, trailing: 12))
+                        .background(filterCategory == "desserts" ? Color("brandYellow") : Color("lightBackground"))
+                        .clipShape(Capsule())
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                        .foregroundStyle(.black)
+                        
+                        Button(action: {
+                            searchText = ""
+                            filterCategory = "drinks"
+                            isSearchFocused = false
+                        }, label: {
+                            Text("Drinks")
+                        })
+                        .padding(EdgeInsets(top:8, leading: 12, bottom: 10, trailing: 12))
+                        .background(filterCategory == "drinks" ? Color("brandYellow") : Color("lightBackground"))
+                        .clipShape(Capsule())
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                        .foregroundStyle(.black)
+                    }
+                }
+                .scrollIndicators(.hidden)
+            }
+            .padding()
+            
+            Divider()
+            
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
                     ForEach(dishes) { dish in
-                        HStack {
-                            Text("\(dish.title ?? "") $\(dish.price ?? "")")
+                        HStack(alignment: .top) {
+                            VStack(alignment: .leading) {
+                                Text("\(dish.title ?? "Unknown dish")")
+                                Text("\(dish.dishDescription ?? "")")
+                                Text("$\(dish.price ?? "")")
+                            }
                             Spacer()
                             AsyncImage(url: URL(string: dish.image ?? "")) { image in
                                 image.resizable()
@@ -33,6 +126,7 @@ struct Menu: View {
                         }
                     }
                 }
+                .listStyle(.plain)
             }
             .onAppear() {
                 getMenuData()
@@ -45,9 +139,11 @@ struct Menu: View {
     }
     
     func buildPredicate() -> NSPredicate {
-        if searchText == "" {
+        if searchText == "" && filterCategory == "" { // Both empty
             return NSPredicate(value: true)
-        } else {
+        } else if searchText == "" && filterCategory != "" { // Only filter by category
+            return NSPredicate(format: "category CONTAINS %@", filterCategory)
+        } else { // Only search
             return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
         }
     }
@@ -67,13 +163,9 @@ struct Menu: View {
                     dish.title = item.title
                     dish.image = item.image
                     dish.price = item.price
+                    dish.dishDescription = item.dishDescription
+                    dish.category = item.category
                 }
-//                result?.menu.forEach({ item in
-//                    let dish = Dish()
-//                    dish.title = item.title
-//                    dish.image = item.image
-//                    dish.price = item.price
-//                })
                 try? viewContext.save()
             }
         }
