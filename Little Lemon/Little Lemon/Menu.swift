@@ -111,8 +111,14 @@ struct Menu: View {
             
             // MARK: Fetch Objects
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
-                List(dishes) { dish in
-//                    ForEach(dishes) { dish in
+//                List {
+//                    ForEach(dishes, id:\.self) { dish in
+//                        Text("Name: \(dish.title ?? "")")
+//                    }
+//                }
+                
+                List {
+                    ForEach(dishes, id:\.self) { dish in
                         HStack(alignment: .top) {
                             VStack(alignment: .leading) {
                                 Text("\(dish.title ?? "Unknown dish")")
@@ -129,7 +135,7 @@ struct Menu: View {
                             }
                                 .frame(width: 100, height: 100)
                         }
-//                    }
+                    }
                 }
                 .listStyle(.plain)
             }
@@ -159,8 +165,9 @@ struct Menu: View {
         let url = URL(string: urlString)!
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data, let stringData = String(data: data, encoding: .utf8) {
-                print(stringData)
+//            if let data = data, let stringData = String(data: data, encoding: .utf8) {
+//                print(stringData)
+            if let data = data {
                 let decoder = JSONDecoder()
                 let result = try? decoder.decode(MenuList.self, from: data)
                 for item in result?.menu ?? [] {

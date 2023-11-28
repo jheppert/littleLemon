@@ -17,7 +17,7 @@ struct Hero: View {
                 VStack(alignment: .leading) {
                     Text("Chicago")
                         .font(.title)
-                    Text("This is a description of the whole application")
+                    Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
                         .font(.callout)
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8))
