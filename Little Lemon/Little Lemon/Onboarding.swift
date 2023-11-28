@@ -32,15 +32,20 @@ struct Onboarding: View {
                         Text("First Name *")
                         TextField("First Name", text: $firstName)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                            .autocorrectionDisabled()
                         Text("Last Name *")
                         TextField("Last Name", text: $lastName)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                            .autocorrectionDisabled()
                         Text("Email *")
                         TextField("Email Address", text: $email)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                            .keyboardType(.emailAddress)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
                     }
                     .textFieldStyle(.roundedBorder)
-                    Button("Register") {
+                    Button {
                         if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
                             UserDefaults.standard.set(firstName, forKey: kFirstName)
                             UserDefaults.standard.set(lastName, forKey: kLastName)
@@ -53,6 +58,9 @@ struct Onboarding: View {
                             lastName = ""
                             email = ""
                         }
+                    } label: {
+                        Text("Register")
+                            .frame(maxWidth: .infinity)
                     }
                     .disabled(firstName.isEmpty || lastName.isEmpty || email.isEmpty)
                     .tint(Color("brandYellow"))
@@ -62,7 +70,8 @@ struct Onboarding: View {
                 }
                 .padding()
                 .onAppear() {
-                    if (UserDefaults.standard.value(forKey: kLoggedIn) as! Bool == true) {
+//                    if (UserDefaults.standard.value(forKey: kLoggedIn) as! Bool == true) {
+                    if (UserDefaults.standard.bool(forKey: kLoggedIn)) {
                         isLoggedIn = true
                         print("Logged In")
                     } else {

@@ -33,6 +33,8 @@ struct Menu: View {
             
             VStack(alignment: .leading) {
                 Text("Order for delivery!")
+                    .font(.title3)
+                    .fontWeight(.bold)
                 ScrollView(.horizontal) {
                     HStack {
                         Button(action: {
@@ -107,12 +109,15 @@ struct Menu: View {
             
             Divider()
             
+            // MARK: Fetch Objects
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
-                List {
-                    ForEach(dishes) { dish in
+                List(dishes) { dish in
+//                    ForEach(dishes) { dish in
                         HStack(alignment: .top) {
                             VStack(alignment: .leading) {
                                 Text("\(dish.title ?? "Unknown dish")")
+                                    .font(.callout)
+                                    .fontWeight(.bold)
                                 Text("\(dish.dishDescription ?? "")")
                                 Text("$\(dish.price ?? "")")
                             }
@@ -124,7 +129,7 @@ struct Menu: View {
                             }
                                 .frame(width: 100, height: 100)
                         }
-                    }
+//                    }
                 }
                 .listStyle(.plain)
             }
